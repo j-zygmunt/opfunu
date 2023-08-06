@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-# Created by "Thieu" at 09:25, 13/07/2022 ----------%                                                                               
-#       Email: nguyenthieu2102@gmail.com            %                                                    
-#       Github: https://github.com/thieu1995        %                         
+# Created by "Thieu" at 09:25, 13/07/2022 ----------%
+#       Email: nguyenthieu2102@gmail.com            %
+#       Github: https://github.com/thieu1995        %
 # --------------------------------------------------%
 
 import numpy as np
@@ -110,7 +110,7 @@ class F22021(CecBenchmark):
         self.n_fe += 1
         self.check_solution(x, self.dim_max, self.dim_supported)
         z = np.dot(self.f_matrix, 1000.*(x - self.f_shift)/100)
-        return operator.bent_cigar_func(z) + self.f_bias
+        return operator.modified_schwefel_func(z) + self.f_bias
 
 
 class F32021(CecBenchmark):
@@ -161,8 +161,13 @@ class F32021(CecBenchmark):
     def evaluate(self, x, *args):
         self.n_fe += 1
         self.check_solution(x, self.dim_max, self.dim_supported)
-        z = np.dot(self.f_matrix, 600.*(x - self.f_shift)/100)
-        return operator.bent_cigar_func(z) + self.f_bias
+        mz = np.dot(self.f_matrix, x - self.f_shift)
+        miu0 = 2.5
+        alpha = operator.generate_diagonal_matrix(self.ndim, alpha=100)
+        y = 10.0 * (x - self.f_shift) / 100
+        x_hat = 2 * np.sign(self.f_shift) * y + miu0
+        z = np.dot(alpha, x_hat - miu0)
+        return operator.lunacek_bi_rastrigin_func(mz, z) + self.f_bias
 
 
 class F42021(CecBenchmark):

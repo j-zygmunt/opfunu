@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-# Created by "Thieu" at 09:53, 13/07/2022 ----------%                                                                               
-#       Email: nguyenthieu2102@gmail.com            %                                                    
-#       Github: https://github.com/thieu1995        %                         
+# Created by "Thieu" at 09:53, 13/07/2022 ----------%
+#       Email: nguyenthieu2102@gmail.com            %
+#       Github: https://github.com/thieu1995        %
 # --------------------------------------------------%
 
 import numpy as np
@@ -107,8 +107,8 @@ class F32022(F12022):
     def evaluate(self, x, *args):
         self.n_fe += 1
         self.check_solution(x, self.dim_max, self.dim_supported)
-        z = np.dot(self.f_matrix, 0.5*(x - self.f_shift)/100)
-        return operator.expanded_scaffer_f6_func(z) + self.f_bias
+        z = np.dot(self.f_matrix, x - self.f_shift)
+        return operator.schaffer_f7_func(z) + self.f_bias
 
 
 class F42022(F12022):
@@ -134,7 +134,7 @@ class F42022(F12022):
         self.n_fe += 1
         self.check_solution(x, self.dim_max, self.dim_supported)
         z = np.dot(self.f_matrix, 5.12*(x - self.f_shift)/100)
-        return operator.expanded_scaffer_f6_func(z) + self.f_bias
+        return operator.rastrigin_func(z) + self.f_bias
 
 
 class F52022(F12022):
@@ -159,7 +159,7 @@ class F52022(F12022):
     def evaluate(self, x, *args):
         self.n_fe += 1
         self.check_solution(x, self.dim_max, self.dim_supported)
-        z = np.dot(self.f_matrix, 5.12*(x - self.f_shift)/100)
+        z = np.dot(self.f_matrix, x - self.f_shift)
         return operator.levy_func(z) + self.f_bias
 
 

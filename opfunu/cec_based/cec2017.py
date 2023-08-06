@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-# Created by "Thieu" at 16:39, 08/07/2022 ----------%                                                                               
-#       Email: nguyenthieu2102@gmail.com            %                                                    
-#       Github: https://github.com/thieu1995        %                         
+# Created by "Thieu" at 16:39, 08/07/2022 ----------%
+#       Email: nguyenthieu2102@gmail.com            %
+#       Github: https://github.com/thieu1995        %
 # --------------------------------------------------%
 
 
@@ -137,7 +137,7 @@ class F42017(F12017):
     def evaluate(self, x, *args):
         self.n_fe += 1
         self.check_solution(x, self.dim_max, self.dim_supported)
-        z = np.dot(self.f_matrix, x - self.f_shift)
+        z = np.dot(self.f_matrix, 5.12 * (x - self.f_shift) / 100)
         return operator.rastrigin_func(z) + self.f_bias
 
 
